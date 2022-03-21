@@ -1,20 +1,22 @@
 import path from 'path';
 import Logging from '@config/winston';
-import sendEmail from '@config/smtp';
-import IUser from '@interfaces/IUser';
+import SendEmail from '@config/smtp';
+import ISendEmailRequest from '@interfaces/ISendEmailRequest';
 
 class SendEmailService {
-    public async execute(user: IUser): Promise<void> {
+    public async execute({ user, template }: ISendEmailRequest): Promise<void> {
         if (!user) Logging.error('User not found');
+
+        const sendEmail = new SendEmail();
 
         const emailTemplate = path.resolve(
             __dirname,
             '..',
             'views',
-            'email.hbs',
+            `${template}.hbs`,
         );
 
-        await sendEmail({
+        await sendEmail.execute({
             to: {
                 name: user.nome,
                 email: user.email,
@@ -25,6 +27,9 @@ class SendEmailService {
                 variables: {
                     nome: user.nome,
                     email: user.email,
+                    dataAdmissaoPrevista: user.dataAdmissaoPrevista,
+                    gestorNome: user.gestor.nome,
+                    gestorEmail: user.gestor.email,
                 },
             },
         });

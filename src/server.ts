@@ -1,21 +1,45 @@
 import dotenv from 'dotenv';
 import SendEmailService from '@services/SendEmailService';
-import FindUsers from '@repositories/findUsers';
+import FindUsersCadastro from '@repositories/findUsersByStatus';
 import Logging from '@config/winston';
+import { UserHistoryService } from '@services/UserHistoryService';
 
 dotenv.config();
 (async (): Promise<void> => {
     const sendEmailService = new SendEmailService();
-    const findUsers = new FindUsers();
+    const userHistory = new UserHistoryService();
+    const findUsersStatusCadastro = new FindUsersCadastro();
 
-    const users = await findUsers.execute();
-    if (!users.length) {
-        Logging.info('No users found');
-        return;
+    const usersCadastro = await findUsersStatusCadastro.execute('Cadastro');
+    const userValidados = await findUsersStatusCadastro.execute(
+        'Documentos Validados',
+    );
+    const userAdmitidos = await findUsersStatusCadastro.execute('Admitido');
+
+    if (usersCadastro.length) {
+        usersCadastro.forEach(async user => {
+            await sendEmailService.execute({
+                user,
+                template: 'email-cadastro',
+            });
+            await userHistory.execute(user.email, 'Cadastro');
+        });
     }
 
-    users.forEach(async user => {
-        Logging.info(`Enviando email para ${user.email}`);
-        await sendEmailService.execute(user);
-    });
+    if (userValidados.length) {
+        userValidados.forEach(async user => {
+            await sendEmailService.execute({
+                user,
+                template: 'email-validado',
+            });
+            await userHistory.execute(user.email, 'Documentos Validados');
+        });
+    }
+
+    if (false) {
+        // userAdmitidos.forEach(async user => {
+        //     await sendEmailService.execute({ user, template: 'email-validacao' });
+        //     await userHistory.execute(user.email, 'email-validacao');
+        // });
+    }
 })();

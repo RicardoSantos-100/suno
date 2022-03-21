@@ -1,9 +1,9 @@
 module.exports = {
-  // parserPreset: {
-  //     parserOpts: {
-  //         issuePrefixes: ['AB#']
-  //     }
-  // },
+//   parserPreset: {
+//       parserOpts: {
+//           issuePrefixes: ['AB#']
+//       }
+//   },
   rules: {
       'body-leading-blank': [1, 'always'],
       'body-max-line-length': [2, 'always', 100],
