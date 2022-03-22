@@ -1,7 +1,7 @@
 import axios from 'axios';
 import IUser from '@interfaces/IUser';
 
-class FindUsersCadastro {
+class FindUsersAdmitidos {
     public async execute(status: string, clienteId: string): Promise<IUser[]> {
         const baseUrl = process.env.DOCLY_URL;
         const response = await axios.get(
@@ -18,4 +18,4 @@ class FindUsersCadastro {
     }
 }
 
-export default FindUsersCadastro;
+export default FindUsersAdmitidos;
