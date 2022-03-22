@@ -1,8 +1,8 @@
+import { IUserAdmitido } from '@interfaces/IUserAdmitido';
 import axios from 'axios';
-import IUser from '@interfaces/IUser';
 
 class FindUsersAdmitidos {
-    public async execute(clienteId: string): Promise<IUser[]> {
+    public async execute(clienteId: string): Promise<IUserAdmitido[]> {
         const baseUrl = process.env.DOCLY_URL;
         const response = await axios.get(
             `${baseUrl}/suno/admissoes/admitidos?clienteId=${clienteId}`,
