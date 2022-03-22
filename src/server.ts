@@ -1,5 +1,5 @@
-import Logging from '@config/winston';
 import dotenv from 'dotenv';
+import Logging from '@config/winston';
 import FindUsersCadastro from '@repositories/findUsersByStatus';
 import sendEmails from '@controllers/sendEmailsController';
 import sendEmailsAdmitidos from '@controllers/sendEmailsAdmitidosController';

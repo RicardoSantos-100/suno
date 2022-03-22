@@ -1,8 +1,7 @@
-import { IUserAdmitido } from '@interfaces/IUserAdmitido';
 import IUser from '@interfaces/IUser';
 
 interface ISendEmails {
-    users: IUser[] | IUserAdmitido[];
+    users: IUser[];
     template: string;
     status: string;
 }

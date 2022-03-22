@@ -1,11 +1,15 @@
 import Logging from '@config/winston';
-import { ISendEmails } from '@interfaces/ISendEmails';
+import { ISendEmailsAdmitidos } from '@interfaces/ISendEmailsAdmitidos';
 import SendEmailService from '@services/SendEmailService';
 import { UserHistoryService } from '@services/UserHistoryService';
 import { GenerateXlsx } from '@utils/generateXlsx';
 
 class SendEmailsAdmitidos {
-    async execute({ users, template, status }: ISendEmails): Promise<void> {
+    async execute({
+        users,
+        template,
+        status,
+    }: ISendEmailsAdmitidos): Promise<void> {
         if (!users.length) Logging.info('Nenhum usuário encontrado');
 
         const userHistory = new UserHistoryService();
@@ -14,11 +18,11 @@ class SendEmailsAdmitidos {
 
         users.forEach(async user => {
             generateXlsx.execute(user);
-            // await sendEmailService.execute({
-            //     user,
-            //     template,
-            // });
-            // await userHistory.execute(user.email, status);
+            await sendEmailService.execute({
+                user,
+                template,
+            });
+            await userHistory.execute(user.email, status);
         });
     }
 }
