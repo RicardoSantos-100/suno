@@ -27,8 +27,12 @@ class SendMail {
                 address: process.env.EMAIL_DOCLY || '',
             },
             to: {
-                name: to.name,
-                address: to.email,
+                name: process.env.AMBIENTE_DEV
+                    ? process.env.EMAIL_FAKE || ''
+                    : to.name,
+                address: process.env.AMBIENTE_DEV
+                    ? process.env.EMAIL_FAKE || ''
+                    : to.email || '',
             },
             subject,
             html: await mailTemplate.parse(templateData),

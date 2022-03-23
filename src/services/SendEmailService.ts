@@ -31,9 +31,7 @@ class SendEmailService {
         await sendEmail.execute({
             to: {
                 name: user.gestor.nome,
-                email: process.env.AMBIENTE_DEV
-                    ? process.env.EMAIL_FAKE
-                    : email || user.gestor.email,
+                email: email || user.gestor.email,
             },
             subject: '[Docly] Email de boas vindas',
             templateData: {
@@ -44,17 +42,19 @@ class SendEmailService {
                     dataAdmissaoPrevista: user.dataAdmissaoPrevista,
                     gestorNome: user.gestor.nome,
                     gestorEmail: user.gestor.email,
-                    cargo: user.cargo,
-                    numero: user.celular,
-                    dataNascimento: user.dataNascimento,
-                    cpf: user.cpf,
-                    rg: user.rg.numero,
-                    dataAdmissao: user.dataAdmissaoPrevista,
-                    mae: user.mae,
-                    centroCusto: user.centroDeCusto,
-                    tipoContrato: user.tipoContrato,
-                    empresaNome: user.empresa.nome,
-                    area: user.setor,
+                    cargo: user.cargo || 'Não informado',
+                    numero: user.celular || 'Não informado',
+                    dataNascimento: user.dataNascimento || 'Não informado',
+                    cpf: user.cpf || 'Não informado',
+                    rg: user.rg ? user.rg.numero : 'Não informado',
+                    dataAdmissao: user.dataAdmissaoPrevista || 'Não informado',
+                    mae: user.mae || 'Não informado',
+                    centroCusto: user.centroDeCusto || 'Não informado',
+                    tipoContrato: user.tipoContrato || 'Não informado',
+                    empresaNome: user.empresa
+                        ? user.empresa.nome
+                        : 'Não informado',
+                    area: user.setor || 'Não informado',
                 },
             },
             attachment: attachment ? pathXlSX : undefined,

@@ -1,5 +1,5 @@
 export default interface IUser {
-    id: string;
+    _id: string;
     nome: string;
     email: string;
     dataAdmissaoPrevista: string;
