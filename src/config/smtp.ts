@@ -9,6 +9,7 @@ class SendMail {
         from,
         subject,
         templateData,
+        attachment,
     }: ISendMail): Promise<any> {
         const mailTemplate = new HandlebarsMailTemplate();
         const transporter = nodemailer.createTransport({
@@ -21,18 +22,25 @@ class SendMail {
             },
         });
 
-        return;
         const email = await transporter.sendMail({
             from: {
                 name: 'Equipe Docly',
-                address: 'admissao@docly.com.br',
+                address: process.env.EMAIL_DOCLY || '',
             },
             to: {
-                name: 'Ricardo',
-                address: 'ricardo.santos@docly.com.br',
+                name: to.name,
+                address: to.email,
             },
             subject,
             html: await mailTemplate.parse(templateData),
+            attachments: attachment
+                ? [
+                      {
+                          filename: 'planilha-admissional.xlsx',
+                          path: attachment,
+                      },
+                  ]
+                : [],
         });
 
         Logging.info(`Email enviado para: ${email.envelope.to}`);

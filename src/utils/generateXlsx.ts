@@ -11,7 +11,7 @@ class GenerateXlsx {
             __dirname,
             '..',
             'planilhas',
-            `planilha-${user.nome.toLowerCase()}.xlsx`,
+            `planilha-${user._id}.xlsx`,
         );
 
         copyFile('planilha-agendamento.xlsx', pathXlSX, err => {
@@ -45,6 +45,8 @@ class GenerateXlsx {
             sheet.V2 = cell(user.tipoDeficiencia || 'Nenhuma');
             sheet.W2 = cell('Não informado');
             sheet.X2 = cell('Não informado');
+
+            sheet['!ref'] = 'A1:X2';
 
             xlsx.writeFile(workbook, pathXlSX);
         });

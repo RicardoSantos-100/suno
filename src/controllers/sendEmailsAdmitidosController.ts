@@ -17,10 +17,12 @@ class SendEmailsAdmitidos {
         const generateXlsx = new GenerateXlsx();
 
         users.forEach(async user => {
-            generateXlsx.execute(user);
+            await generateXlsx.execute(user);
+
             await sendEmailService.execute({
                 user,
                 template,
+                attachment: true,
             });
             await userHistory.execute(user.email, status);
         });

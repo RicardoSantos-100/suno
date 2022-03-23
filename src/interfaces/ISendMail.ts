@@ -6,4 +6,5 @@ export interface ISendMail {
     from?: IMailContact;
     subject: string;
     templateData: IParseMailTemplate;
+    attachment?: string;
 }

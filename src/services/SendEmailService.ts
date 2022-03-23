@@ -4,7 +4,11 @@ import SendEmail from '@config/smtp';
 import ISendEmailRequest from '@interfaces/ISendEmailRequest';
 
 class SendEmailService {
-    public async execute({ user, template }: ISendEmailRequest): Promise<void> {
+    public async execute({
+        user,
+        template,
+        attachment = false,
+    }: ISendEmailRequest): Promise<void> {
         if (!user) Logging.error('User not found');
 
         const sendEmail = new SendEmail();
@@ -16,10 +20,17 @@ class SendEmailService {
             `${template}.hbs`,
         );
 
+        const pathXlSX = path.resolve(
+            __dirname,
+            '..',
+            'planilhas',
+            `planilha-${user._id}.xlsx`,
+        );
+
         await sendEmail.execute({
             to: {
-                name: user.nome,
-                email: user.email,
+                name: user.gestor.nome,
+                email: user.gestor.email,
             },
             subject: '[Docly] Email de boas vindas',
             templateData: {
@@ -32,6 +43,7 @@ class SendEmailService {
                     gestorEmail: user.gestor.email,
                 },
             },
+            attachment: attachment ? pathXlSX : undefined,
         });
     }
 }
