@@ -42,7 +42,7 @@ class SendEmailService {
                     dataAdmissaoPrevista: user.dataAdmissaoPrevista,
                     gestorNome: user.gestor.nome,
                     gestorEmail: user.gestor.email,
-                    cargo: user.cargo || 'Não informado',
+                    cargo: user.cargo,
                     numero: user.celular || 'Não informado',
                     dataNascimento: user.dataNascimento || 'Não informado',
                     cpf: user.cpf || 'Não informado',

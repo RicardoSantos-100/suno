@@ -30,7 +30,7 @@ class Logging {
         winston.addColors(colors);
 
         const format = winston.format.combine(
-            winston.format.label({ label: 'api' }),
+            winston.format.label({ label: 'suno' }),
             winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
             winston.format.colorize({ all: true }),
             winston.format.printf(({ level, message, label, timestamp }) => {

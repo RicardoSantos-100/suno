@@ -1,7 +1,7 @@
-import { IUserAdmitido } from '@interfaces/IUserAdmitido';
+import { IUser } from '@interfaces/IUser';
 
 export default interface ISendEmailRequest {
-    user: IUserAdmitido;
+    user: IUser;
     template: string;
     attachment?: boolean;
     email?: string;

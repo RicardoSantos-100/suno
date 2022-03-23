@@ -1,5 +1,5 @@
 import axios from 'axios';
-import IUser from '@interfaces/IUser';
+import { IUser } from '@interfaces/IUser';
 
 class FindUsersCadastro {
     public async execute(status: string, clienteId: string): Promise<IUser[]> {
