@@ -25,8 +25,8 @@ class GenerateXlsx {
             sheet.B2 = cell(user.data);
             sheet.C2 = cell(user.empresa.cnpj);
             sheet.D2 = cell(user.empresa.nome);
-            sheet.E2 = cell('Não informado');
-            sheet.F2 = cell('Não informado');
+            sheet.E2 = cell(user.unidade);
+            sheet.F2 = cell(user.setor);
             sheet.G2 = cell(user.cargo);
             sheet.H2 = cell(user.matricula);
             sheet.I2 = cell(user.nome);

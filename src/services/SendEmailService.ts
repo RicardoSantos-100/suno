@@ -8,6 +8,7 @@ class SendEmailService {
         user,
         template,
         attachment = false,
+        email,
     }: ISendEmailRequest): Promise<void> {
         if (!user) Logging.error('User not found');
 
@@ -30,7 +31,9 @@ class SendEmailService {
         await sendEmail.execute({
             to: {
                 name: user.gestor.nome,
-                email: user.gestor.email,
+                email: process.env.AMBIENTE_DEV
+                    ? process.env.EMAIL_FAKE
+                    : email || user.gestor.email,
             },
             subject: '[Docly] Email de boas vindas',
             templateData: {
@@ -41,6 +44,17 @@ class SendEmailService {
                     dataAdmissaoPrevista: user.dataAdmissaoPrevista,
                     gestorNome: user.gestor.nome,
                     gestorEmail: user.gestor.email,
+                    cargo: user.cargo,
+                    numero: user.celular,
+                    dataNascimento: user.dataNascimento,
+                    cpf: user.cpf,
+                    rg: user.rg.numero,
+                    dataAdmissao: user.dataAdmissaoPrevista,
+                    mae: user.mae,
+                    centroCusto: user.centroDeCusto,
+                    tipoContrato: user.tipoContrato,
+                    empresaNome: user.empresa.nome,
+                    area: user.setor,
                 },
             },
             attachment: attachment ? pathXlSX : undefined,

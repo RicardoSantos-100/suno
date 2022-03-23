@@ -16,29 +16,29 @@ dotenv.config();
     const findUsersByStatus = new FindUsersCadastro();
     const findUsersAdmitidos = new FindUsersAdmitidos();
 
-    // const usersCadastro = await findUsersByStatus.execute(
-    //     'Cadastro',
-    //     sunoClienteId,
-    // );
+    const usersCadastro = await findUsersByStatus.execute(
+        'Cadastro',
+        sunoClienteId,
+    );
 
-    // const usersValidados = await findUsersByStatus.execute(
-    //     'Documentos Validados',
-    //     sunoClienteId,
-    // );
+    const usersValidados = await findUsersByStatus.execute(
+        'Documentos Validados',
+        sunoClienteId,
+    );
 
     const userAdmitidos = await findUsersAdmitidos.execute(sunoClienteId);
 
-    // await sendEmails.execute({
-    //     users: usersCadastro,
-    //     template: 'email-cadastro',
-    //     status: 'Cadastro',
-    // });
+    await sendEmails.execute({
+        users: usersCadastro,
+        template: 'email-cadastro',
+        status: 'Cadastro',
+    });
 
-    // await sendEmails.execute({
-    //     users: usersValidados,
-    //     template: 'email-validado',
-    //     status: 'Validados',
-    // });
+    await sendEmails.execute({
+        users: usersValidados,
+        template: 'email-validado',
+        status: 'Validados',
+    });
 
     sendEmailsAdmitidos.execute({
         users: userAdmitidos,

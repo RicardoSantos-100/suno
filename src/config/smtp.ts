@@ -6,7 +6,6 @@ import HandlebarsMailTemplate from '@config/HandlebarsMailTemplate';
 class SendMail {
     async execute({
         to,
-        from,
         subject,
         templateData,
         attachment,
@@ -36,7 +35,7 @@ class SendMail {
             attachments: attachment
                 ? [
                       {
-                          filename: 'planilha-admissional.xlsx',
+                          filename: 'planilha-agendamento.xlsx',
                           path: attachment,
                       },
                   ]

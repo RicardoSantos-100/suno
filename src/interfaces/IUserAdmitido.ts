@@ -32,6 +32,11 @@ interface IUserAdmitido {
     celular: string;
     email: string;
     tipoDeficiencia: string;
+    unidade: string;
+    setor: string;
+    mae: string;
+    tipoContrato: string;
+    centroDeCusto: string;
 }
 
 export { IUserAdmitido };

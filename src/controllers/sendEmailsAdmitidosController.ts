@@ -21,9 +21,22 @@ class SendEmailsAdmitidos {
 
             await sendEmailService.execute({
                 user,
+                template: 'email-admitido-corretora',
+                email: process.env.EMAIL_CORRETORA,
+            });
+
+            await sendEmailService.execute({
+                user,
+                template: 'email-admitido-ti',
+                email: process.env.EMAIL_TI,
+            });
+
+            await sendEmailService.execute({
+                user,
                 template,
                 attachment: true,
             });
+
             await userHistory.execute(user.email, status);
         });
     }
